@@ -1,5 +1,5 @@
 # Medical-Transformer
-
+The code is adapted from the Official Pytorch Code for "Medical Transformer: Gated Axial-Attention for Medical Image Segmentation" - MICCAI 2021
  <a href="https://arxiv.org/abs/2102.10662"> </a> 
 
 Pytorch code for the paper 
@@ -7,10 +7,6 @@ Pytorch code for the paper
 Medical Image Segmentation"](https://arxiv.org/pdf/2102.10662.pdf), MICCAI 2021
 
 [Paper](https://arxiv.org/pdf/2102.10662.pdf) | [Poster](https://drive.google.com/file/d/1gMjc5guT_dYQFT6TEEwdHAFKwG5XkEc9/view?usp=sharing)
-
-## News:
-
-:rocket: : Checkout our latest work [UNeXt](https://arxiv.org/abs/2203.04967), a faster and more efficient segmentation architecture which is also easy to train and implement! Code is available [here](https://github.com/jeya-maria-jose/UNeXt-pytorch).
 
 ### About this repo:
 
@@ -41,11 +37,11 @@ respectively. The proposed Medical Transformer (MedT) uses LoGo training strateg
 
 - Clone this repository:
 ```bash
-git clone https://github.com/jeya-maria-jose/Medical-Transformer
-cd Medical-Transformer
+git clone https://github.com/usamabjw/medt.git
+cd medt
 ```
 
-The code is stable using Python 3.6.10, Pytorch 1.4.0
+The code is stable using Python 3.9.10
 
 To install all the dependencies using conda:
 
@@ -129,6 +125,9 @@ The results including predicted segmentations maps will be placed in the results
 
 1)Note that these experiments were conducted in Nvidia Quadro 8000 with 48 GB memory. 
 2)Google Colab Code is an unofficial implementation for quick train/test. Please follow original code for proper training.
+3)The model was trained for 250 epochs and the model weights are placed in saved_models
+4)Data preprocessing scripts are placed in Scripts folder (m file for processing annotations from xml to jpg format)
+5) Inference results are saved in results folder
 
 ### Acknowledgement:
 

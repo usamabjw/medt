@@ -1,0 +1,6 @@
+For Training following commands are used: 
+
+python train.py --train_dataset Datasets/MoNuSeg_2018/Train --val_dataset Datasets/MoNuSeg_2018/Val --direc results/ --batch_size 2 --epoch 10 --save_freq 10 --modelname "gatedaxialunet" --learning_rate 0.001 --imgsize 1000 --gray "no"
+
+test commands:
+python test.py --loaddirec saved_models/110/MedT.pth --train_dataset Datasets/MoNuSeg_2018/Train --val_dataset Datasets/MoNuSeg_2018/Test --direc results/MoNuSeg_Medt_inference --batch_size 1 --modelname "MedT" --imgsize 512 --gray "no"                

@@ -127,8 +127,8 @@ for epoch in range(args.epochs):
 
     epoch_running_loss = 0
     
-    for batch_idx, (X_batch, y_batch, *rest) in enumerate(dataloader):        
-        
+    for batch_idx, data1 in enumerate(dataloader):        
+        X_batch, y_batch = data1[0], data1[1]
         
 
         X_batch = Variable(X_batch.to(device ='cuda'))
@@ -171,12 +171,13 @@ for epoch in range(args.epochs):
             param.requires_grad =True
     if (epoch % args.save_freq) ==0:
 
-        for batch_idx, (X_batch, y_batch, *rest) in enumerate(valloader):
+        for batch_idx, data1 in enumerate(valloader):
+            X_batch, y_batch = data1[0], data1[1]
             # print(batch_idx)
-            if isinstance(rest[0][0], str):
-                        image_filename = rest[0][0]
+            if isinstance(data1[2][0], str):
+                image_filename = data1[2][0]
             else:
-                        image_filename = '%s.png' % str(batch_idx + 1).zfill(3)
+                image_filename = '%s.png' % str(batch_idx + 1).zfill(3)
 
             X_batch = Variable(X_batch.to(device='cuda'))
             y_batch = Variable(y_batch.to(device='cuda'))
@@ -215,6 +216,3 @@ for epoch in range(args.epochs):
         fulldir = direc+"/{}/".format(epoch)
         torch.save(model.state_dict(), fulldir+args.modelname+".pth")
         torch.save(model.state_dict(), direc+"final_model.pth")
-            
-
-

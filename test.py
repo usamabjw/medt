@@ -57,9 +57,9 @@ parser.add_argument('--imgsize', type=int, default=None)
 parser.add_argument('--gray', default='no', type=str)
 args = parser.parse_args()
 
-direc = args.direc
+# direc = args.direc
 gray_ = args.gray
-aug = args.aug
+# aug = args.aug
 direc = args.direc
 modelname = args.modelname
 imgsize = args.imgsize
@@ -79,10 +79,10 @@ else:
 
 tf_train = JointTransform2D(crop=crop, p_flip=0.5, color_jitter_params=None, long_mask=True)
 tf_val = JointTransform2D(crop=crop, p_flip=0, color_jitter_params=None, long_mask=True)
-train_dataset = ImageToImage2D(args.train_dataset, tf_val)
+# train_dataset = ImageToImage2D(args.train_dataset, tf_val)
 val_dataset = ImageToImage2D(args.val_dataset, tf_val)
 predict_dataset = Image2D(args.val_dataset)
-dataloader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True)
+# dataloader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True)
 valloader = DataLoader(val_dataset, 1, shuffle=True)
 
 device = torch.device("cuda")
@@ -106,12 +106,18 @@ model.load_state_dict(torch.load(loaddirec))
 model.eval()
 
 
-for batch_idx, (X_batch, y_batch, *rest) in enumerate(valloader):
+for batch_idx, data1 in enumerate(valloader):
+    X_batch, y_batch = data1[0], data1[1]
     # print(batch_idx)
-    if isinstance(rest[0][0], str):
-                image_filename = rest[0][0]
+    # if isinstance(rest[0][0], str):
+    #             image_filename = rest[0][0]
+    # else:
+    #             image_filename = '%s.png' % str(batch_idx + 1).zfill(3)
+    if isinstance(data1[2][0], str):
+        image_filename = data1[2][0]
     else:
-                image_filename = '%s.png' % str(batch_idx + 1).zfill(3)
+        image_filename = '%s.png' % str(batch_idx + 1).zfill(3)
+
 
     X_batch = Variable(X_batch.to(device='cuda'))
     y_batch = Variable(y_batch.to(device='cuda'))
@@ -142,8 +148,12 @@ for batch_idx, (X_batch, y_batch, *rest) in enumerate(valloader):
     if not os.path.isdir(fulldir):
         
         os.makedirs(fulldir)
-   
-    cv2.imwrite(fulldir+image_filename, yHaT[0,1,:,:])
+    image_filename = os.path.splitext(image_filename)[0]
+
+    cv2.imwrite(fulldir+image_filename+'.png', yHaT[0,1,:,:])
+
+
+    # cv2.imwrite(fulldir+image_filename, yHaT[0,1,:,:])
 
 
 
